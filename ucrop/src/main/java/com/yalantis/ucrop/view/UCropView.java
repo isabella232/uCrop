@@ -53,7 +53,11 @@ public class UCropView extends FrameLayout {
             @Override
             public void onCropRectUpdated(RectF cropRect) {
                 mGestureCropImageView.setCropRect(cropRect);
-
+            }
+        });
+        mViewOverlay.setOverlayViewDidUpdateChangeListener(new OverlayViewChangeListener() {
+            @Override
+            public void onCropRectUpdated(RectF cropRect) {
                 ViewGroup.LayoutParams imageParams = mImageViewOverlay.getLayoutParams();
                 imageParams.height = (int) cropRect.height();
                 imageParams.width = (int) cropRect.width();

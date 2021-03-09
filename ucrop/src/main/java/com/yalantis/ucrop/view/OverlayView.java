@@ -70,6 +70,7 @@ public class OverlayView extends View {
     private int mCropRectCornerTouchAreaLineLength;
 
     private OverlayViewChangeListener mCallback;
+    private OverlayViewChangeListener mDidUpdateCallback;
 
     private boolean mShouldSetupCropBounds;
 
@@ -98,6 +99,10 @@ public class OverlayView extends View {
 
     public void setOverlayViewChangeListener(OverlayViewChangeListener callback) {
         mCallback = callback;
+    }
+
+    public void setOverlayViewDidUpdateChangeListener(OverlayViewChangeListener callback) {
+        mDidUpdateCallback = callback;
     }
 
     @NonNull
@@ -256,6 +261,10 @@ public class OverlayView extends View {
             mCallback.onCropRectUpdated(mCropViewRect);
         }
 
+        if (mDidUpdateCallback != null) {
+            mDidUpdateCallback.onCropRectUpdated(mCropViewRect);
+        }
+
         updateGridPoints();
     }
 
@@ -335,6 +344,10 @@ public class OverlayView extends View {
 
                 mPreviousTouchX = x;
                 mPreviousTouchY = y;
+
+                if (mDidUpdateCallback != null) {
+                    mDidUpdateCallback.onCropRectUpdated(mCropViewRect);
+                }
 
                 return true;
             }
