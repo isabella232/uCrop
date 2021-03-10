@@ -38,7 +38,6 @@ public class UCropView extends FrameLayout {
         mGestureCropImageView.processStyledAttributes(a);
         a.recycle();
 
-
         setListenersToViews();
     }
 
@@ -76,6 +75,11 @@ public class UCropView extends FrameLayout {
     @NonNull
     public GestureCropImageView getCropImageView() {
         return mGestureCropImageView;
+    }
+
+    @NonNull
+    public ImageView getOverlayImageView() {
+        return mImageViewOverlay;
     }
 
     @NonNull

@@ -310,6 +310,10 @@ public class OverlayView extends View {
         super.onDraw(canvas);
         drawDimmedLayer(canvas);
         drawCropGrid(canvas);
+
+        if (mDidUpdateCallback != null) {
+            mDidUpdateCallback.onCropRectUpdated(mCropViewRect);
+        }
     }
 
     @Override
@@ -344,10 +348,6 @@ public class OverlayView extends View {
 
                 mPreviousTouchX = x;
                 mPreviousTouchY = y;
-
-                if (mDidUpdateCallback != null) {
-                    mDidUpdateCallback.onCropRectUpdated(mCropViewRect);
-                }
 
                 return true;
             }

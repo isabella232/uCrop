@@ -23,8 +23,6 @@
         android:id="@+id/ucrop_imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/ucrop_ic_rotate"
-        />
+        android:scaleType="fitXY" />
 
 </merge>
