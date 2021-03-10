@@ -11,18 +11,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 
-import com.yalantis.ucrop.model.AspectRatio;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.yalantis.ucrop.model.AspectRatio;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -51,6 +51,8 @@ public class UCrop {
 
     public static final String EXTRA_MAX_SIZE_X = EXTRA_PREFIX + ".MaxSizeX";
     public static final String EXTRA_MAX_SIZE_Y = EXTRA_PREFIX + ".MaxSizeY";
+
+    public static final String EXTRA_OVERLAY_RESOURCE_ID = EXTRA_PREFIX + ".OverlayResourceId";
 
     private Intent mCropIntent;
     private Bundle mCropOptionsBundle;
@@ -92,6 +94,11 @@ public class UCrop {
     public UCrop useSourceImageAspectRatio() {
         mCropOptionsBundle.putFloat(EXTRA_ASPECT_RATIO_X, 0);
         mCropOptionsBundle.putFloat(EXTRA_ASPECT_RATIO_Y, 0);
+        return this;
+    }
+
+    public UCrop overlayImageResourceId(Integer id) {
+        mCropOptionsBundle.putInt(EXTRA_OVERLAY_RESOURCE_ID, id);
         return this;
     }
 
@@ -300,7 +307,6 @@ public class UCrop {
         public static final String EXTRA_ASPECT_RATIO_OPTIONS = EXTRA_PREFIX + ".AspectRatioOptions";
 
         public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX + ".UcropRootViewBackgroundColor";
-
 
         private final Bundle mOptionBundle;
 
@@ -552,6 +558,10 @@ public class UCrop {
         public void useSourceImageAspectRatio() {
             mOptionBundle.putFloat(EXTRA_ASPECT_RATIO_X, 0);
             mOptionBundle.putFloat(EXTRA_ASPECT_RATIO_Y, 0);
+        }
+
+        public void overlayImageResourceId(Integer id) {
+            mOptionBundle.putInt(EXTRA_OVERLAY_RESOURCE_ID, 0);
         }
 
         /**

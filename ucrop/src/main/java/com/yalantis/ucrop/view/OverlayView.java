@@ -12,17 +12,17 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+
 import com.yalantis.ucrop.R;
 import com.yalantis.ucrop.callback.OverlayViewChangeListener;
 import com.yalantis.ucrop.util.RectUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.IntDef;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -70,6 +70,7 @@ public class OverlayView extends View {
     private int mCropRectCornerTouchAreaLineLength;
 
     private OverlayViewChangeListener mCallback;
+    private OverlayViewChangeListener mDidUpdateCallback;
 
     private boolean mShouldSetupCropBounds;
 
@@ -98,6 +99,10 @@ public class OverlayView extends View {
 
     public void setOverlayViewChangeListener(OverlayViewChangeListener callback) {
         mCallback = callback;
+    }
+
+    public void setOverlayViewDidUpdateChangeListener(OverlayViewChangeListener callback) {
+        mDidUpdateCallback = callback;
     }
 
     @NonNull
@@ -256,6 +261,10 @@ public class OverlayView extends View {
             mCallback.onCropRectUpdated(mCropViewRect);
         }
 
+        if (mDidUpdateCallback != null) {
+            mDidUpdateCallback.onCropRectUpdated(mCropViewRect);
+        }
+
         updateGridPoints();
     }
 
@@ -301,6 +310,10 @@ public class OverlayView extends View {
         super.onDraw(canvas);
         drawDimmedLayer(canvas);
         drawCropGrid(canvas);
+
+        if (mDidUpdateCallback != null) {
+            mDidUpdateCallback.onCropRectUpdated(mCropViewRect);
+        }
     }
 
     @Override
